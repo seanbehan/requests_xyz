@@ -1,0 +1,6 @@
+{
+  "name": "HTTP Request Sharing",
+  "description": "Create and share http requests and responses",
+  "repository": "https://github.com/seanbehan/requestsxyz",
+  "keywords": ["flask", "python", "requests", "http"]
+}
