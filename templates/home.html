@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>HTTPBin</title>
+    <style media="screen">
+      label { display:block; }
+    </style>
+  </head>
+  <body>
+    <form action="/request" method="post">
+      <p>
+      <label>METHOD:</label>
+      <select name="method">
+        <option>GET</option>
+        <option>POST</option>
+        <option>PUT</option>
+        <option>DELETE</option>
+        <option>PATCH</option>
+        <option>HEAD</option>
+      </select>
+      </p>
+      <p>
+        <label>URL:</label>
+        <input type="text" name="url" value="{{url}}">
+      </p>
+      <p>
+        <label>HEADERS</label>
+        <textarea name="headers"></textarea>
+      </p>
+      <p>
+      <label>BODY</label>
+      <textarea name="body"></textarea>
+      </p>
+
+      <button>Submit</button>
+    </form>
+  </body>
+</html>
