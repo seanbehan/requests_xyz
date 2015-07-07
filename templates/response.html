@@ -1,3 +1,30 @@
+<form action="/request" method="post">
+  <p>
+  <label>METHOD:</label>
+  <select name="method">
+    {% for item in ['GET', 'POST', 'PUT', 'PATCH', 'HEAD', 'DELETE'] %}
+    <option {{'selected' if item in data.method}}>{{item}}</option>
+    {% endfor %}
+  </select>
+  </p>
+  <p>
+    <label>URL:</label>
+    <input type="text" name="url" value="{{data.url}}" size=200>
+  </p>
+  <p>
+    <label>HEADERS</label>
+    <textarea name="headers" cols=100 rows=5>{{data.headers}}</textarea>
+  </p>
+  <p>
+  <label>BODY</label>
+  <textarea name="body" cols=100 rows=5>{{data.body}}</textarea>
+  </p>
+
+  <button>Submit</button>
+</form>
+
+<h3>STATUS CODE: {{resp.status_code}}</h3>
+
 <h3>HEADERS</h3>
 <code>{{headers}}</code>
 

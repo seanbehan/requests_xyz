@@ -15,7 +15,7 @@ def home():
 def make_request():
     url = request.form.get('url', '')
     method = request.form.get('method', '')
-    headers = request.form.get('headers[]', '')
+    headers = request.form.get('headers', '')
     body = request.form.get('body', '')
 
     payload = encode(compress(str(
@@ -33,8 +33,10 @@ def make_request():
 @app.route("/r/<data>")
 def encoded_data(data):
     data = (json.loads(decompress(decode(str(data)))))
+    headers = dict(map(lambda x: x.split(':'), filter(None, data['headers'].split('\n'))))
 
     method = data['method'].lower()
+    body = data['body']
     url = data['url']
     if not url.startswith('http'):
         url = 'http://' + url
@@ -44,10 +46,11 @@ def encoded_data(data):
         'post':requests.post,
         'put':requests.put,
         'delete':requests.delete,
-        'head':requests.head
-    }[method](url, headers=data['headers'])
+        'head':requests.head,
+        'patch':requests.patch
+    }[method](url, headers=headers, data=str(body))
 
-    return render("response.html", headers=resp.headers, content=resp.content)
+    return render("response.html", resp=resp, headers=resp.headers, content=resp.text, data=data)
 
 if __name__=='__main__':
     app.run(debug=True)

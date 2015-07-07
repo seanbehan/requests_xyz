@@ -12,12 +12,9 @@
       <p>
       <label>METHOD:</label>
       <select name="method">
-        <option>GET</option>
-        <option>POST</option>
-        <option>PUT</option>
-        <option>DELETE</option>
-        <option>PATCH</option>
-        <option>HEAD</option>
+        {% for item in ['GET', 'POST', 'PUT', 'PATCH', 'HEAD', 'DELETE'] %}
+        <option {{'selected' if item in 'GET'}}>{{item}}</option>
+        {% endfor %}
       </select>
       </p>
       <p>
