@@ -15,7 +15,7 @@
 </div>
 
 <div class="row">
-  <form action="/request" method="post" onsubmit="document.getElementById('textarea_editor').val(editor.getSession().getValue())">
+  <form action="/request" method="post">
     <div class="row">
       <div class="twelve columns">
         <h4>Requests.xyz - Shareable HTTP Requests and Responses</h4>
@@ -53,16 +53,12 @@
   </form>
 </div>
 
-
 <script>
     var textArea = document.getElementById('textarea_editor');
-
     var editor = ace.edit("editor");
     editor.getSession().setMode("ace/mode/javascript");
-    editor.getSession().setValue(textArea.value)
-
+    editor.getSession().setValue(textArea.value);
     editor.getSession().on("change", function(){
-      textArea.value=(editor.getSession().getValue())
-      // editor.resize()
+      textArea.value=(editor.getSession().getValue());
     })
 </script>

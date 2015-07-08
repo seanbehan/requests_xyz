@@ -10,15 +10,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/zenburn.min.css" media="screen" title="no title" charset="utf-8">
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
   </head>
-  <body onload="document.getElementById('shareURL').value=location.host + location.pathname">
+  <body onload="document.getElementById('shareURL').value=location.host + location.pathname + '#response'">
     <div class="container">
       {% include 'inc/form.html' %}
-
-      <hr>
       <a href="">Back to top</a>
       <h1 id="response">Response</h1>
-      <label>Share URL - Copy/paste this link and share with other developers</label>
+      <p>Request URL: {{resp.url}}</p>
+      <label>Shareable URL - Copy/paste this link and share with other developers</label>
       <input type="text" value="" onload="this.value='hi'" class="u-full-width" id="shareURL" onclick="this.select()">
+      <small><i>*Note* All visits to the shareable URL will trigger the request. Even POST, PUT and DELETE!</i></small>
+
+      <br>
 
       <table class="table u-full-width">
         <tr>
