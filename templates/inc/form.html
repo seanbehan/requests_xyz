@@ -1,3 +1,4 @@
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.9/ace.js"></script>
 <style type="text/css" media="screen">
     #editor {
         min-height:250px;
@@ -6,11 +7,9 @@
     }
 </style>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.9/ace.js"></script>
-
 <div class="row">
   <div class="twelve columns">
-    <a href="/">Create New Request</a>
+    <a href="/">+ Create Shareable Request</a>
   </div>
 </div>
 
@@ -49,10 +48,10 @@
 
       <textarea id='textarea_editor' name="body" class="u-full-width" placeholder="E.g., {'full_name': 'Bob'}" style="visibility:hidden;margin:0px">{{data.body}}</textarea>
     </div>
-
   </form>
 </div>
 
+<script>hljs.initHighlightingOnLoad();</script>
 <script>
     var textArea = document.getElementById('textarea_editor');
     var editor = ace.edit("editor");
