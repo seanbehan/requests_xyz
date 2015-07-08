@@ -1,0 +1,68 @@
+<style type="text/css" media="screen">
+    #editor {
+        min-height:250px;
+        border:solid 2px #EEE;
+        margin-bottom:0px;
+    }
+</style>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.9/ace.js"></script>
+
+<div class="row">
+  <div class="twelve columns">
+    <a href="/">Create New Request</a>
+  </div>
+</div>
+
+<div class="row">
+  <form action="/request" method="post" onsubmit="document.getElementById('textarea_editor').val(editor.getSession().getValue())">
+    <div class="row">
+      <div class="twelve columns">
+        <h4>Requests.xyz - Shareable HTTP Requests and Responses</h4>
+        <label>Request method and URL</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="one column">
+        <select name="method">
+          {% for item in ['GET', 'POST', 'PUT', 'PATCH', 'HEAD', 'DELETE'] %}
+          <option {{'selected' if item in data.method}}>{{item}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="eleven columns">
+        <input type="text" name="url" value="{{data.url}}" class="u-full-width" placeholder="URL: E.g., http://...">
+      </div>
+    </div>
+
+    <div class="twelve columns">
+      <label>Headers - <span>Put each header on a new line</span></label>
+      <textarea name="headers" class="u-full-width" placeholder="E.g., Content-Type: application/json">{{data.headers}}</textarea>
+    </div>
+
+    <div class="twelve columns">
+      <label>Optional Request Body</label>
+      <div id="editor" class="uc-full-width"></div>
+      <br>
+      <p><button>Get Share URL</button></p>
+
+      <textarea id='textarea_editor' name="body" class="u-full-width" placeholder="E.g., {'full_name': 'Bob'}" style="visibility:hidden;margin:0px">{{data.body}}</textarea>
+    </div>
+
+  </form>
+</div>
+
+
+<script>
+    var textArea = document.getElementById('textarea_editor');
+
+    var editor = ace.edit("editor");
+    editor.getSession().setMode("ace/mode/javascript");
+    editor.getSession().setValue(textArea.value)
+
+    editor.getSession().on("change", function(){
+      textArea.value=(editor.getSession().getValue())
+      // editor.resize()
+    })
+</script>

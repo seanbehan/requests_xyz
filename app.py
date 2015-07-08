@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return render("home.html")
+    return render("home.html", data=None)
 
 @app.route("/request", methods=["POST"])
 def make_request():
@@ -27,7 +27,7 @@ def make_request():
         ))
     )))
 
-    return redirect("/r/%s" % payload)
+    return redirect("/r/%s#response" % payload)
 
 
 @app.route("/r/<data>")
@@ -50,7 +50,12 @@ def make_and_render_request(data):
         'patch':requests.patch
     }[method](url, headers=headers, data=str(body))
 
-    return render("response.html", resp=resp, headers=resp.headers, content=resp.text, data=data)
+    content = resp.text
+    if 'json' in resp.headers['content-type']:
+        content = json.dumps(json.loads(resp.text),indent=4, separators=(',', ': '))
+    headers = json.dumps(json.loads(json.dumps(dict(resp.headers))),indent=4, separators=(',', ': '))
+
+    return render("response.html", resp=resp, headers=headers, content=content, data=data)
 
 if __name__=='__main__':
     app.run(debug=True)

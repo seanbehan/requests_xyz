@@ -2,35 +2,17 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>HTTPBin</title>
+    <title>Requests.XYZ | Shareable HTTP Requests and Responses</title>
     <style media="screen">
       label { display:block; }
     </style>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" media="screen" title="no title" charset="utf-8">
   </head>
   <body>
-    <form action="/request" method="post">
-      <p>
-      <label>METHOD:</label>
-      <select name="method">
-        {% for item in ['GET', 'POST', 'PUT', 'PATCH', 'HEAD', 'DELETE'] %}
-        <option {{'selected' if item in 'GET'}}>{{item}}</option>
-        {% endfor %}
-      </select>
-      </p>
-      <p>
-        <label>URL:</label>
-        <input type="text" name="url" value="{{url}}">
-      </p>
-      <p>
-        <label>HEADERS</label>
-        <textarea name="headers"></textarea>
-      </p>
-      <p>
-      <label>BODY</label>
-      <textarea name="body"></textarea>
-      </p>
+    <div class="container">
+      {% include 'inc/form.html' %}
+    </div>
 
-      <button>Submit</button>
-    </form>
+    {% include 'inc/footer.html' %}
   </body>
 </html>

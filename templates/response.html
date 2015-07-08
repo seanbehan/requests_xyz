@@ -1,32 +1,69 @@
-<form action="/request" method="post">
-  <p>
-  <label>METHOD:</label>
-  <select name="method">
-    {% for item in ['GET', 'POST', 'PUT', 'PATCH', 'HEAD', 'DELETE'] %}
-    <option {{'selected' if item in data.method}}>{{item}}</option>
-    {% endfor %}
-  </select>
-  </p>
-  <p>
-    <label>URL:</label>
-    <input type="text" name="url" value="{{data.url}}" size=200>
-  </p>
-  <p>
-    <label>HEADERS</label>
-    <textarea name="headers" cols=100 rows=5>{{data.headers}}</textarea>
-  </p>
-  <p>
-  <label>BODY</label>
-  <textarea name="body" cols=100 rows=5>{{data.body}}</textarea>
-  </p>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Requests.XYZ | Shareable HTTP Requests and Responses</title>
+    <style media="screen">
+      label { display:block; }
+    </style>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/zenburn.min.css" media="screen" title="no title" charset="utf-8">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
+  </head>
+  <body onload="document.getElementById('shareURL').value=location.host + location.pathname">
+    <div class="container">
+      {% include 'inc/form.html' %}
 
-  <button>Submit</button>
-</form>
+      <hr>
+      <a href="">Back to top</a>
+      <h1 id="response">Response</h1>
+      <label>Share URL - Copy/paste this link and share with other developers</label>
+      <input type="text" value="" onload="this.value='hi'" class="u-full-width" id="shareURL" onclick="this.select()">
 
-<h3>STATUS CODE: {{resp.status_code}}</h3>
+      <table class="table u-full-width">
+        <tr>
+          <td style="width:150px">
+            Status Code:
+          </td>
+          <td>
+            {{resp.status_code}}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Content-Type
+          </td>
+          <td>
+            {{resp.headers['content-type']}}
+          </td>
+        </tr>
 
-<h3>HEADERS</h3>
-<code>{{headers}}</code>
+        <tr>
+          <td colspan="2">
+            Headers
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <pre><code>{{headers}}</code></pre>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            Response Body
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <pre><code>{{content}}</code></pre>
+          </td>
+        </tr>
+      </table>
 
-<h3>RESPONSE</h3>
-<pre>{{content}}</pre>
+    </div>
+
+    {% include 'inc/footer.html' %}
+
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
