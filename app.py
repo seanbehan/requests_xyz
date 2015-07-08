@@ -33,7 +33,7 @@ def make_request():
 @app.route("/r/<data>")
 def encoded_data(data):
     data = (json.loads(decompress(decode(str(data)))))
-    headers = dict(map(lambda x: x.split(':'), filter(None, data['headers'].split('\n'))))
+    headers = dict(map(lambda x: map(str.strip, str(x).split(':')), filter(None, data['headers'].split('\n'))))
 
     method = data['method'].lower()
     body = data['body']
@@ -50,6 +50,7 @@ def encoded_data(data):
         'patch':requests.patch
     }[method](url, headers=headers, data=str(body))
 
+    # return resp.content
     return render("response.html", resp=resp, headers=resp.headers, content=resp.text, data=data)
 
 if __name__=='__main__':
