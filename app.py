@@ -49,8 +49,7 @@ def encoded_data(data):
         'head':requests.head,
         'patch':requests.patch
     }[method](url, headers=headers, data=str(body))
-
-    # return resp.content
+    
     return render("response.html", resp=resp, headers=resp.headers, content=resp.text, data=data)
 
 if __name__=='__main__':
