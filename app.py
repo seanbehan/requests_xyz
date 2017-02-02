@@ -1,11 +1,15 @@
-from flask import Flask, jsonify, render_template as render, request, redirect
+import sys
 import requests
 import json
+import logging
+from flask import Flask, jsonify, render_template as render, request, redirect
 from urllib import urlencode
 from base64 import urlsafe_b64encode as encode, urlsafe_b64decode as decode
 from zlib import compress, decompress
 
 app = Flask(__name__)
+app.logger.addHandler(logging.StreamHandler(sys.stdout))
+app.logger.setLevel(logging.ERROR)
 
 @app.route("/")
 def home():
