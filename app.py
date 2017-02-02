@@ -48,7 +48,7 @@ def make_and_render_request(data):
         'delete':requests.delete,
         'head':requests.head,
         'patch':requests.patch
-    }[method](url, headers=headers, data=str(body))
+    }[method](url, headers=headers, data=str(body), verify=False)
 
     content = resp.text
     if 'json' in resp.headers['content-type']:
